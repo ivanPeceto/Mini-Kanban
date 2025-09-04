@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 4200
 
 # RECORDATORIO: Cambiar a producción antes de entregar
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
