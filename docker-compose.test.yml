@@ -1,0 +1,14 @@
+services:
+  db:
+    container_name: db-test 
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data 
+
+  api:
+    container_name: api-test
+
+  frontend:
+    container_name: frontend-test
+
+volumes:
+  postgres_test_data:
