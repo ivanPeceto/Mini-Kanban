@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+RUN npm install -g @angular/cli@17
+
 RUN npm install
 
 COPY . .
@@ -11,4 +13,4 @@ COPY . .
 EXPOSE 4200
 
 # RECORDATORIO: Cambiar a producción antes de entregar
-CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
+CMD ["ng", "serve", "--host", "0.0.0.0"]

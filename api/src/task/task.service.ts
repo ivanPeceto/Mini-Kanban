@@ -88,5 +88,11 @@ export class TaskService {
     if (deleted.affected === 0) {
       throw new NotFoundException(`Task con ID "${id}" no encontrada.`);
     }
+
+    this.taskGateway.broadcastUpdate({
+      type: 'deleted',
+      task_id: id,
+    });
+
   }
 }

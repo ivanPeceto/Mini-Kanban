@@ -10,3 +10,9 @@ export interface BoardShape {
   doing: Task[];
   done: Task[];
 }
+
+export interface TaskUpdate {
+  type: 'created' | 'moved' | 'deleted';
+  task?: Task; 
+  task_id?: string; 
+}

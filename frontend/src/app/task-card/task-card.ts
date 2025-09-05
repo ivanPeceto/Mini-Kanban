@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../socket.service';
+import { Task } from '../shared/types';
 
 @Component({
   selector: 'app-task-card',

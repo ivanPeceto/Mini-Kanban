@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
-import type { BoardShape, Task } from './shared/types';
+import type { BoardShape, TaskUpdate } from './shared/types';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class SocketService {
     this.board$.next(board);
    });
 
-   this.socket.on('board:update', (update) =>{
+   this.socket.on('board:update', (update: TaskUpdate) =>{
     //WIP
     console.log('Update recibido', update);
    });
