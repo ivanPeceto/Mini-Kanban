@@ -1,0 +1,8 @@
+<div class="bg-white rounded-lg p-4 shadow hover:shadow-md cursor-pointer border-l-4 border-blue-500">
+  <h3 class="font-bold text-gray-800">{{ task.title }}</h3>
+  @if (typeof task.description === 'undefined'){
+    <p class="text-sm text-gray-600 mt-2">
+      {{ task.description }}
+    </p>
+  }
+</div>
