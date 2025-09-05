@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Socket } from './socket';
+import { Socket } from './socket.service';
 
-describe('Socket', () => {
+describe('SocketService', () => {
   let service: Socket;
 
   beforeEach(() => {
