@@ -84,12 +84,17 @@ describe('Tasks Controller (e2e)', () => {
   });
 
   it('DELETE /tasks/:id - Debe eliminar una tarea', async () => {
+    const taskResponse = await request(app.getHttpServer())
+      .post('/tasks')
+      .send({ title: 'Task to delete' });
+    const taskId = taskResponse.body.id;
+
     await request(app.getHttpServer())
-      .delete(`/tasks/${createdTaskId}/delete`)
+      .delete(`/tasks/${taskId}/delete`)
       .expect(200);
 
     return request(app.getHttpServer())
-      .get(`/tasks/${createdTaskId}`)
+      .get(`/tasks/${taskId}`)
       .expect(404);
   });
 });
