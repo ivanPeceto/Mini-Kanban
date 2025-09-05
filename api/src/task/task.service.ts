@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  forwardRef,
+  Inject,
+} from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { MoveTaskDto } from './dto/move-task.dto';
@@ -12,6 +17,7 @@ export class TaskService {
   constructor(
     @InjectRepository(Task)
     private readonly taskRepository: Repository<Task>,
+    @Inject(forwardRef(() => TaskGateway))
     private readonly taskGateway: TaskGateway,
   ) {}
 
@@ -42,7 +48,7 @@ export class TaskService {
   }
 
   async findOne(id: string): Promise<Task> {
-    const task = await this.taskRepository.findOneByOrFail({ id });
+    const task = await this.taskRepository.findOneBy({ id });
     if (!task) {
       throw new NotFoundException(`Task con ID "${id}" no encontrada.`);
     }

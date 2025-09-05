@@ -6,6 +6,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { TaskService } from './task.service';
+import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { BoardShape } from './entities/task.entity';
 
 @WebSocketGateway({
@@ -14,7 +15,10 @@ import { BoardShape } from './entities/task.entity';
   },
 })
 export class TaskGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  constructor(private readonly taskService: TaskService) {}
+  constructor(
+    @Inject(forwardRef(() => TaskService))
+    private readonly taskService: TaskService,
+  ) {}
   @WebSocketServer()
   server: Server;
 
