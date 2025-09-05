@@ -8,6 +8,12 @@ import {
 
 export type TaskColumn = 'todo' | 'doing' | 'done';
 
+export type BoardShape = {
+  todo: Task[];
+  doing: Task[];
+  done: Task[];
+};
+
 @Entity()
 export class Task {
   @PrimaryGeneratedColumn('uuid')

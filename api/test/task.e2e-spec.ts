@@ -57,7 +57,7 @@ describe('Tasks Controller (e2e)', () => {
       .send({ title: 'Another Test Task' });
 
     return request(app.getHttpServer())
-      .get('/board')
+      .get('/tasks/board')
       .expect(200)
       .then((response) => {
         expect(response.body).toHaveProperty('todo');
@@ -85,7 +85,7 @@ describe('Tasks Controller (e2e)', () => {
 
   it('DELETE /tasks/:id - Debe eliminar una tarea', async () => {
     await request(app.getHttpServer())
-      .delete(`/tasks/${createdTaskId}`)
+      .delete(`/tasks/${createdTaskId}/delete`)
       .expect(200);
 
     return request(app.getHttpServer())
