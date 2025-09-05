@@ -51,6 +51,7 @@ describe('Tasks Controller (e2e)', () => {
         createdTaskId = response.body.id;
       });
   });
+  
   it('GET /board - Debe devolver el estado del tablero', async () => {
     await request(app.getHttpServer())
       .post('/tasks')
