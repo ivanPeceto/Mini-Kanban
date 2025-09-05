@@ -5,6 +5,8 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { TaskService } from './task.service';
+import { BoardShape } from './entities/task.entity';
 
 @WebSocketGateway({
   cors: {
@@ -12,11 +14,14 @@ import { Server, Socket } from 'socket.io';
   },
 })
 export class TaskGateway implements OnGatewayConnection, OnGatewayDisconnect {
+  constructor(private readonly taskService: TaskService) {}
   @WebSocketServer()
   server: Server;
 
-  handleConnection(client: Socket, ...args: any[]) {
+  handleConnection(client: Socket) {
     console.log(`Cliente conectado: ${client.id}`);
+    const board = this.taskService.getBoardState();
+    client.emit('board:snapshot', board);
   }
 
   handleDisconnect(client: Socket) {
