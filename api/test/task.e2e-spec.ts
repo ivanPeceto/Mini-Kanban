@@ -9,7 +9,6 @@ import { Repository } from 'typeorm';
 describe('Tasks Controller (e2e)', () => {
   let app: INestApplication;
   let taskRepository: Repository<Task>;
-  let createdTaskId: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -48,7 +47,6 @@ describe('Tasks Controller (e2e)', () => {
           createdAt: expect.any(String),
           updatedAt: expect.any(String),
         });
-        createdTaskId = response.body.id;
       });
   });
   
@@ -94,8 +92,18 @@ describe('Tasks Controller (e2e)', () => {
       .delete(`/tasks/${taskId}/delete`)
       .expect(200);
 
+    return request(app.getHttpServer()).get(`/tasks/${taskId}`).expect(404);
+  });
+
+  it('PATCH /tasks/:id/update - Tiene que actualizar una tarea', async () => {
+    const taskResponse = await request(app.getHttpServer())
+      .post('/tasks')
+      .send({ title: 'Task to delete' });
+    const taskId = taskResponse.body.id;
+
     return request(app.getHttpServer())
-      .get(`/tasks/${taskId}`)
-      .expect(404);
+      .patch(`/tasks/${taskId}/update`)
+      .send({ title: 'Task updated', description: 'New task description' })
+      .expect(200);
   });
 });
