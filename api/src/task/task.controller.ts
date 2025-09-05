@@ -27,6 +27,11 @@ export class TaskController {
     return this.taskService.findAll();
   }
 
+  @Get('/board')
+  getBoardState() {
+    return this.taskService.getBoardState();
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.taskService.findOne(id);
@@ -40,7 +45,7 @@ export class TaskController {
     return this.taskService.moveTask(id, moveTaskDto);
   }
 
-  @Patch(':id')
+  @Patch(':id/update')
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateTaskDto: UpdateTaskDto,
@@ -48,7 +53,7 @@ export class TaskController {
     return this.taskService.update(id, updateTaskDto);
   }
 
-  @Delete(':id')
+  @Delete(':id/delete')
   remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.taskService.remove(id);
   }

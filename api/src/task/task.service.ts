@@ -4,7 +4,7 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { MoveTaskDto } from './dto/move-task.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Task } from './entities/task.entity';
+import { BoardShape, Task } from './entities/task.entity';
 import { TaskGateway } from './task.gateway';
 
 @Injectable()
@@ -22,6 +22,23 @@ export class TaskService {
 
   async findAll(): Promise<Task[]> {
     return await this.taskRepository.find();
+  }
+
+  async getBoardState(): Promise<BoardShape> {
+    const allTasks = await this.taskRepository.find();
+
+    const board = allTasks.reduce(
+      (acc, task) => {
+        if (!acc[task.column]) {
+          acc[task.column] = [];
+        }
+        acc[task.column].push(task);
+        return acc;
+      },
+      { todo: [], doing: [], done: [] } as BoardShape,
+    );
+
+    return board;
   }
 
   async findOne(id: string): Promise<Task> {
