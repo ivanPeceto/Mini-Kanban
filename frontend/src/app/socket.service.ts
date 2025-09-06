@@ -64,6 +64,20 @@ export class SocketService {
           this.board$.next(newBoard);
         }
         break;
+
+      case 'updated':
+        if (update.task) {
+          const updatedTask = update.task;
+          const newBoard = { ...board };
+
+          (Object.keys(newBoard) as Array<keyof BoardShape>).forEach(columnKey => {
+            let taskIndex = newBoard[columnKey].findIndex(t => t.id === updatedTask.id);
+            if (taskIndex !== -1){
+              newBoard[columnKey][taskIndex] = updatedTask;
+            }
+          });
+        }
+        break;
     }
   }
 
