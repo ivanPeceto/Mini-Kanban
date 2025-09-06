@@ -24,9 +24,9 @@ export class TaskGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
-  handleConnection(client: Socket) {
+  async handleConnection(client: Socket) {
     console.log(`Cliente conectado: ${client.id}`);
-    const board = this.taskService.getBoardState();
+    const board = await this.taskService.getBoardState();
     client.emit('board:snapshot', board);
   }
 

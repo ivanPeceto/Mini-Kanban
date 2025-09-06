@@ -14,8 +14,8 @@
       />
     }
 
-    @for (task of tasks(); track task.id) {
-      <app-task-card [task]="task"></app-task-card>
+    @for (t of tasks(); track t.id) {
+      <app-task-card [task]="t"></app-task-card>
     } @empty {
       @if (!isCreatingNewTask()) {
         <div class="text-center text-gray-500 p-4 border-2 border-dashed rounded-lg">
