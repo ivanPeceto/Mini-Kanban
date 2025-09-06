@@ -11,7 +11,9 @@ import { BoardShape } from './entities/task.entity';
 
 @WebSocketGateway({
   cors: {
-    origin: '*',
+    origin: `http://localhost:${process.env.FRONTEND_PORT ?? 4200}`,
+    methods: ['GET', 'POST'],
+    credentials: true,
   },
 })
 export class TaskGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -22,9 +24,9 @@ export class TaskGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
-  handleConnection(client: Socket) {
+  async handleConnection(client: Socket) {
     console.log(`Cliente conectado: ${client.id}`);
-    const board = this.taskService.getBoardState();
+    const board = await this.taskService.getBoardState();
     client.emit('board:snapshot', board);
   }
 

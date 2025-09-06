@@ -1,12 +1,30 @@
-<div class="bg-gray-200 rounded-lg p-4 flex flex-col h-full">
-  <h2 class="text-xl font-bold text-gray-700 mb-4">{{ title }}</h2>
+<div class="bg-gray-200 rounded-lg p-4 pt-0 flex flex-col min-h-[80vh] max-h-[80vh] overflow-y-auto">
+
+  <div class="sticky top-0 bg-gray-200 pt-4">
+    <h2
+      (click)="toggleCreateTask()"
+      class="text-xl font-bold text-gray-700 mb-4 p-2 rounded-md transition-transform duration-200 cursor-pointer hover:bg-gray-300/60 hover:-translate-y-0.5"
+    >
+      {{ title() }}
+    </h2>
+  </div>
   <div class="flex-grow space-y-4">
-    @for (task of tasks; track task.id) {
-      <app-task-card [task]="task"></app-task-card>
+    @if (isCreatingNewTask()) {
+      <app-create-task
+        (create)="handleCreateTask($event)"
+        (cancel)="isCreatingNewTask.set(false)"
+      />
+    }
+
+    @for (t of tasks(); track t.id) {
+      <app-task-card [task]="t" (delete)="handleDeleteTask($event)"></app-task-card>
     } @empty {
-      <div class="text-center text-gray-500 p-4 border-2 border-dashed rounded-lg">
-        <p>Nada por aquí...</p>
-      </div>
+      @if (!isCreatingNewTask()) {
+        <div 
+          class="text-center text-gray-500 p-4 border-2 border-dashed rounded-lg"> 
+          <p>Nada por aquí...</p>
+        </div>
+      }
     }
   </div>
 </div>
