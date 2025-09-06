@@ -18,9 +18,53 @@ export class SocketService {
     this.board$.next(board);
    });
 
-   this.socket.on('board:update', (update: TaskUpdate) =>{
-    //WIP
-    console.log('Update recibido', update);
+   this.socket.on('board:update', (update: TaskUpdate) => { 
+    this.processBoardUpdate(update);
    });
   }
+
+  private processBoardUpdate(update: TaskUpdate): void {
+    const board = this.board$.getValue();
+    let newBoard: BoardShape;
+
+    switch (update.type) {
+      case 'created':
+        if (update.task) {
+          newBoard = {
+            ...board,
+            todo: [update.task, ...board.todo],
+          };
+          this.board$.next(newBoard);
+        }
+        break;
+      
+      case 'deleted':
+        if (update.task_id) {
+          newBoard = {
+            todo: board.todo.filter((task) => task.id !== update.task_id),
+            doing: board.doing.filter((task) => task.id !== update.task_id),
+            done: board.done.filter((task) => task.id !== update.task_id),
+          };
+          this.board$.next(newBoard);
+        }
+        break;
+
+      case 'moved':
+        if (update.task) {
+          const movedTask = update.task;
+          const newBoard = { ...board };
+          
+          // Elimina la tarea de todas las columnas para evitar duplicados
+          (Object.keys(newBoard) as Array<keyof BoardShape>).forEach(columnKey => {
+            newBoard[columnKey] = newBoard[columnKey].filter(t => t.id !== movedTask.id);
+          });
+          
+          newBoard[movedTask.column] = [movedTask, ...newBoard[movedTask.column]];
+
+          this.board$.next(newBoard);
+        }
+        break;
+    }
+  }
+
 }
