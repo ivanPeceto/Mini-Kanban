@@ -11,7 +11,9 @@ import { BoardShape } from './entities/task.entity';
 
 @WebSocketGateway({
   cors: {
-    origin: '*',
+    origin: `http://localhost:${process.env.FRONTEND_PORT ?? 4200}`,
+    methods: ['GET', 'POST'],
+    credentials: true,
   },
 })
 export class TaskGateway implements OnGatewayConnection, OnGatewayDisconnect {
