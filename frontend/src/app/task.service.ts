@@ -8,9 +8,13 @@ import { Task } from './shared/types';
 })
 export class TaskService {
   private httpClient = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/tasks';
   
   createTask(taskData: {title: string; description?: string }): Observable<Task>{
-    return this.httpClient.post<Task>(`${this.apiUrl}/tasks`, taskData);
+    return this.httpClient.post<Task>(`${this.apiUrl}`, taskData);
+  }
+
+  deleteTask(taskData: {id: string}): Observable<unknown>{
+    return this.httpClient.delete<Task>(`${this.apiUrl}/${taskData.id}/delete`);
   }
 }

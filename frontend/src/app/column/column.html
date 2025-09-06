@@ -17,10 +17,11 @@
     }
 
     @for (t of tasks(); track t.id) {
-      <app-task-card [task]="t"></app-task-card>
+      <app-task-card [task]="t" (delete)="handleDeleteTask($event)"></app-task-card>
     } @empty {
       @if (!isCreatingNewTask()) {
-        <div class="text-center text-gray-500 p-4 border-2 border-dashed rounded-lg">
+        <div 
+          class="text-center text-gray-500 p-4 border-2 border-dashed rounded-lg"> 
           <p>Nada por aquí...</p>
         </div>
       }

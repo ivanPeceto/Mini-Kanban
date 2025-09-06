@@ -14,7 +14,6 @@ import { TaskService } from '../task.service';
 export class Column {
   title = input.required<string>();
   tasks = input.required<Task[]>();
-
   isCreatingNewTask = signal(false);
 
   private taskService = inject(TaskService);
@@ -28,5 +27,11 @@ export class Column {
 
   toggleCreateTask(): void {
     this.isCreatingNewTask.update((isCreating) => !isCreating);
+  }
+
+  handleDeleteTask(taskData: {id: string}): void{
+    this.taskService.deleteTask(taskData).subscribe({
+      error: (err) => console.error('Error eliminando la task:', err),
+    })
   }
 }
