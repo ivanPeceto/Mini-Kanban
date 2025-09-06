@@ -1,11 +1,11 @@
 @if (board$ | async; as board){
-  <div class="grid grid-cols-3 gap-8 p-8 bg-gray-100 min-h-screen"> 
+  <div class="grid grid-cols-3 gap-8 p-8 bg-gray-100"> 
     <app-column title="To Do" [tasks]="board.todo"></app-column>
     <app-column title="Doing" [tasks]="board.doing"></app-column>
     <app-column title="Done" [tasks]="board.done"></app-column>
   </div>
 } @else {
-  <div class="flex items-center justify-center min-h-screen">
+  <div class="flex items-center justify-center">
     <p class="text-lg text-gray-500">Cargando tablero...</p>
   </div>
 }
