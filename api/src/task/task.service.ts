@@ -23,6 +23,10 @@ export class TaskService {
 
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const task = this.taskRepository.create(createTaskDto);
+    this.taskGateway.broadcastUpdate({
+      type: 'created',
+      task: task,
+    });
     return await this.taskRepository.save(task);
   }
 
