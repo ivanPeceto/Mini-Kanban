@@ -12,7 +12,7 @@ export interface BoardShape {
 }
 
 export interface TaskUpdate {
-  type: 'created' | 'moved' | 'deleted';
+  type: 'created' | 'moved' | 'deleted' | 'updated';
   task?: Task; 
   task_id?: string; 
 }
