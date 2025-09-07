@@ -1,0 +1,8 @@
+:host ::ng-deep .cdk-drag-placeholder {
+  @apply bg-gray-400/50 rounded-lg; /* 3. Color gris oscuro */
+  opacity: 1;
+}
+
+:host ::ng-deep .cdk-dragging {
+  @apply shadow-2xl scale-105;
+}

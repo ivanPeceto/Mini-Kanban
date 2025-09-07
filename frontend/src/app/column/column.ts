@@ -3,10 +3,11 @@ import { TaskCard } from '../task-card/task-card';
 import { Task } from '../shared/types';
 import { CreateTask } from '../create-task/create-task';
 import { TaskService } from '../task.service';
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-column',
-  imports: [TaskCard, CreateTask],
+  imports: [TaskCard, CreateTask, DragDropModule],
   templateUrl: './column.html',
   styleUrl: './column.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

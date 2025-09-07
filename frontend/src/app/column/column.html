@@ -17,7 +17,7 @@
     }
 
     @for (t of tasks(); track t.id) {
-      <app-task-card [task]="t" (delete)="handleDeleteTask($event)"></app-task-card>
+      <app-task-card [task]="t" (delete)="handleDeleteTask($event)" cdkDrag [cdkDragData]="t"></app-task-card>
     } @empty {
       @if (!isCreatingNewTask()) {
         <div 

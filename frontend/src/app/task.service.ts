@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Task } from './shared/types';
+import { BoardShape, Task } from './shared/types';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +16,9 @@ export class TaskService {
 
   deleteTask(taskData: {id: string}): Observable<unknown>{
     return this.httpClient.delete<Task>(`${this.apiUrl}/${taskData.id}/delete`);
+  }
+
+  moveTask(id: string, column: keyof BoardShape): Observable<Task>{
+    return this.httpClient.patch<Task>(`${this.apiUrl}/${id}/move`, {column});
   }
 }
