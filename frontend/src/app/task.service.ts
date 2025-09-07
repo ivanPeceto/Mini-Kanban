@@ -10,7 +10,7 @@ export class TaskService {
   private httpClient = inject(HttpClient);
   private apiUrl = 'http://localhost:3000/tasks';
   
-  createTask(taskData: {title: string; description?: string }): Observable<Task>{
+  createTask(taskData: {title: string; description?: string; column?: string }): Observable<Task>{
     return this.httpClient.post<Task>(`${this.apiUrl}`, taskData);
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import type { BoardShape, TaskUpdate } from './shared/types';
+import { Board } from './board/board';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,10 @@ export class SocketService {
     switch (update.type) {
       case 'created':
         if (update.task) {
+          const targetCol: keyof BoardShape = update.task.column;
           newBoard = {
             ...board,
-            todo: [update.task, ...board.todo],
+            [targetCol]: [update.task, ...board[targetCol]],
           };
           this.board$.next(newBoard);
         }

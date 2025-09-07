@@ -24,7 +24,7 @@ export class Column {
 
   private taskService = inject(TaskService);
 
-  handleCreateTask(taskData: {title: string; description?: string}): void{
+  handleCreateTask(taskData: {title: string; description?: string; column?: string}): void{
     this.taskService.createTask(taskData).subscribe({
       next: () => this.isCreatingNewTask.set(false),
       error: (err) => console.error('Error creando la task:', err),
