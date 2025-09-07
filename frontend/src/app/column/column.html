@@ -8,17 +8,24 @@
       {{ title() }}
     </h2>
   </div>
-  <div class="flex-grow space-y-4">
+  <div 
+    class="flex-grow space-y-4 overflow-y-auto pr-2"
+    cdkDropList
+    [id]="listId()"
+    [cdkDropListData]="listData()"  
+    [cdkDropListSortingDisabled]="true"
+    (cdkDropListDropped)="dropped.emit($event)"
+  >
     @if (isCreatingNewTask()) {
       <app-create-task
         (create)="handleCreateTask($event)"
         (cancel)="isCreatingNewTask.set(false)"
       />
     }
-
     @for (t of tasks(); track t.id) {
-      <app-task-card [task]="t" (delete)="handleDeleteTask($event)"></app-task-card>
-    } @empty {
+      <app-task-card [task]="t" (delete)="handleDeleteTask($event)" cdkDrag [cdkDragData]="t"></app-task-card>
+    } 
+    @empty {
       @if (!isCreatingNewTask()) {
         <div 
           class="text-center text-gray-500 p-4 border-2 border-dashed rounded-lg"> 
@@ -26,5 +33,7 @@
         </div>
       }
     }
+    <div *cdkDragPlaceholder class="bg-gray-400/50 rounded-lg min-h-20 transition-all duration-200"></div>
+
   </div>
 </div>

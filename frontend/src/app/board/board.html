@@ -1,8 +1,26 @@
 @if (board$ | async; as board){
-  <div class="grid grid-cols-3 gap-8 p-8 bg-gray-100"> 
-    <app-column title="To Do" [tasks]="board.todo"></app-column>
-    <app-column title="Doing" [tasks]="board.doing"></app-column>
-    <app-column title="Done" [tasks]="board.done"></app-column>
+  <div cdkDropListGroup class="grid grid-cols-1 md:grid-cols-3 gap-6"> 
+    <app-column 
+      [listId]="'todo'"
+      [listData]="board.todo"
+      (dropped)="handleTaskDrop($event)"
+      [title]="'To Do'" 
+      [tasks]="board.todo"
+    />
+    <app-column 
+      [listId]="'doing'"
+      [listData]="board.doing"
+      (dropped)="handleTaskDrop($event)"
+      [title]="'Doing'" 
+      [tasks]="board.doing"
+    />
+    <app-column 
+      [listId]="'done'"
+      [listData]="board.done"
+      (dropped)="handleTaskDrop($event)"
+      [title]="'Done'" 
+      [tasks]="board.done"
+    />
   </div>
 } @else {
   <div class="flex items-center justify-center">

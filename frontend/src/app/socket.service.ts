@@ -59,7 +59,7 @@ export class SocketService {
             newBoard[columnKey] = newBoard[columnKey].filter(t => t.id !== movedTask.id);
           });
           
-          newBoard[movedTask.column] = [movedTask, ...newBoard[movedTask.column]];
+          newBoard[movedTask.column] = [...newBoard[movedTask.column], movedTask];
 
           this.board$.next(newBoard);
         }
