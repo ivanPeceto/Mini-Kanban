@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -9,8 +9,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateTask {
-  create = output<{ title: string; description?: string }>();
+  create = output<{ title: string; description?: string; column: string }>();
   cancel = output<void>();
+  listId = input.required<string>();
 
   private formbuilder = inject(FormBuilder);
   taskForm = this.formbuilder.nonNullable.group({
@@ -22,6 +23,11 @@ export class CreateTask {
     if (this.taskForm.invalid) {
       return;
     }
-    this.create.emit(this.taskForm.getRawValue());
+    const task = {
+      title: this.taskForm.getRawValue().title,
+      description: this.taskForm.getRawValue().description,
+      column: this.listId(),
+    }
+    this.create.emit(task);
   }
 }
