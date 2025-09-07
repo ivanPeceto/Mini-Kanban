@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+import type { TaskColumn } from '../entities/task.entity';
 
 export class CreateTaskDto {
   @IsString({ message: 'El título debe ser un texto válido.' })
@@ -14,4 +21,9 @@ export class CreateTaskDto {
     message: 'La descripción no puede tener más de 500 caractéres.',
   })
   description?: string;
+
+  @IsEnum(['todo', 'doing', 'done'], {
+    message: "La columna debe ser 'todo', 'doing', 'done'",
+  })
+  column?: TaskColumn;
 }
