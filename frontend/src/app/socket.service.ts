@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import type { BoardShape, TaskUpdate } from './shared/types';
@@ -10,10 +10,21 @@ import { Board } from './board/board';
 export class SocketService {
   private socket: Socket;
   public board$ = new BehaviorSubject<BoardShape>({todo: [], doing: [], done: []});
+  isConnected = signal(false);
 
   constructor(){
    this.socket = io('http://localhost:3000');
-   
+
+   this.socket.on('connect', () => {
+     console.log('Conectado al servidor websocket');
+     this.isConnected.set(true);
+   });
+
+   this.socket.on('disconnect', () => {
+     console.warn('Desconectado del servidor. Reintentando...');
+     this.isConnected.set(false);
+   });
+
    //snapshot inicial
    this.socket.on('board:snapshot', (board: BoardShape) => {
     this.board$.next(board);
