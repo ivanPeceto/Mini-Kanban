@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "prettier": {
     "printWidth": 100,
