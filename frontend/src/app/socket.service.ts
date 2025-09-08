@@ -50,7 +50,8 @@ export class SocketService {
           this.board$.next(newBoard);
         }
         break;
-
+        
+      case 'updated':
       case 'moved':
         if (update.task) {
           const movedTask = update.task;
@@ -64,20 +65,6 @@ export class SocketService {
           newBoard[movedTask.column] = [...newBoard[movedTask.column], movedTask];
 
           this.board$.next(newBoard);
-        }
-        break;
-
-      case 'updated':
-        if (update.task) {
-          const updatedTask = update.task;
-          const newBoard = { ...board };
-
-          (Object.keys(newBoard) as Array<keyof BoardShape>).forEach(columnKey => {
-            let taskIndex = newBoard[columnKey].findIndex(t => t.id === updatedTask.id);
-            if (taskIndex !== -1){
-              newBoard[columnKey][taskIndex] = updatedTask;
-            }
-          });
         }
         break;
     }
