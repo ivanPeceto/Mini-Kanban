@@ -24,11 +24,20 @@
       />
     }
     @for (t of tasks(); track t.id) {
-      <app-task-card 
-      [task]="t" 
-      (delete)="handleDeleteTask($event)" 
-      cdkDrag [cdkDragData]="t"
-      ></app-task-card>
+      @if (t.id === updatingTaskId && isUpdatingTask()){
+        <app-update-task
+        [task]="t"
+        (cancel)="isUpdatingTask.set(false)"
+        (update)="handleUpdateTask($event)"
+        />
+      }@else {
+        <app-task-card 
+        [task]="t" 
+        (delete)="handleDeleteTask($event)" 
+        (update)="toggleUpdateTask($event)"
+        cdkDrag [cdkDragData]="t"
+        ></app-task-card>
+      }
     } 
     @empty {
       @if (!isCreatingNewTask()) {

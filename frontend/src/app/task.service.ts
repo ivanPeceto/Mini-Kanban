@@ -21,4 +21,8 @@ export class TaskService {
   moveTask(id: string, column: keyof BoardShape): Observable<Task>{
     return this.httpClient.patch<Task>(`${this.apiUrl}/${id}/move`, {column});
   }
+
+  updateTask(taskData: {id: string; title?: string; descrition?: string}): Observable<Task>{
+    return this.httpClient.patch<Task>(`${this.apiUrl}/${taskData.id}/update`, taskData);
+  }
 }

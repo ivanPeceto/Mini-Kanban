@@ -1,4 +1,4 @@
-import { Component, output, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, output, ChangeDetectionStrategy, input} from '@angular/core';
 import { Task } from '../shared/types';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -12,9 +12,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 export class TaskCard {
   task = input.required<Task>();
   delete = output<{id: string}>();
+  update = output<{id: string}>();
 
   onPressDelete(): void {
     this.delete.emit({id: this.task().id});
   }
 
+  onPressUpdate(): void{
+    this.update.emit({id: this.task().id});
+  }
 }

@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, inject, input, output, signal } fro
 import { TaskCard } from '../task-card/task-card';
 import { Task } from '../shared/types';
 import { CreateTask } from '../create-task/create-task';
+import { UpdateTask } from '../update-task/update-task';
 import { TaskService } from '../task.service';
 import { CdkDragDrop, DragDropModule } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-column',
-  imports: [TaskCard, CreateTask, DragDropModule],
+  imports: [TaskCard, CreateTask, DragDropModule, UpdateTask],
   templateUrl: './column.html',
   styleUrl: './column.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,6 +22,8 @@ export class Column {
   dropped = output<CdkDragDrop<Task[]>>();
 
   isCreatingNewTask = signal(false);
+  isUpdatingTask = signal(false);
+  updatingTaskId: string = '';
 
   private taskService = inject(TaskService);
 
@@ -39,5 +42,16 @@ export class Column {
     this.taskService.deleteTask(taskData).subscribe({
       error: (err) => console.error('Error eliminando la task:', err),
     })
+  }
+
+  handleUpdateTask(taskData: {id: string; title?: string; description?: string}): void{
+    this.taskService.updateTask(taskData).subscribe({
+      next: ()=> this.isUpdatingTask.set(false),
+      error: (err)=> console.error('Error actualizando la task: ', err),
+    });  
+  }
+  toggleUpdateTask(taskData: {id: string}): void{
+    this.updatingTaskId = taskData.id;
+    this.isUpdatingTask.update((isUpdating)=>!isUpdating);
   }
 }

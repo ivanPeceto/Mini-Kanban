@@ -1,0 +1,36 @@
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="onSubmit()"
+  class="bg-white rounded-lg mt-2 p-4 shadow border-l-4 border-green-500 animate-fade-in"
+>
+  <input
+    formControlName="title"
+    type="text"
+    placeholder="¿Qué hay que hacer?"
+    class="w-full font-bold text-gray-800 outline-none bg-transparent"
+  />
+
+  <textarea
+    formControlName="description"
+    placeholder="Añade una descripción..."
+    rows="2"
+    class="w-full text-sm text-gray-600 mt-2 outline-none bg-transparent resize-none"
+  ></textarea>
+
+  <div class="flex items-center justify-end space-x-2 mt-3">
+    <button
+      type="button"
+      (click)="cancel.emit()"
+      class="px-3 py-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 rounded-md"
+    >
+      Cancelar
+    </button>
+    <button
+      type="submit"
+      [disabled]="taskForm.invalid"
+      class="px-3 py-1 text-sm font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed"
+    >
+      Actualizar
+    </button>
+  </div>
+</form>
