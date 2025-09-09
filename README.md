@@ -2,8 +2,8 @@
 Proyecto entregable a modo de prueba técnica.
 
 # Videos
-[![Watch the video](https://github.com/ivanPeceto/Mini-Kanban/blob/main/multimedia/thumbnail.jpg)](https://github.com/ivanPeceto/Mini-Kanban/blob/main/multimedia/video.webm)
-[![Watch the video](https://github.com/ivanPeceto/Mini-Kanban/blob/main/multimedia/thumbnail.jpg)](https://github.com/ivanPeceto/Mini-Kanban/blob/main/multimedia/video_manyclients.webm)
+[video.webm](https://github.com/user-attachments/assets/539e355e-c39f-42f7-9cb3-891a44ac4c21)
+[video_manyclients.webm](https://github.com/user-attachments/assets/502ad0ce-851b-423f-83e3-d7c32c5b80d7)
 
 # Instalación
 Requisitos: docker instalado
