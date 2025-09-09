@@ -20,7 +20,7 @@ Para correr los testeos e2e de los endpoints de la api:
 docker compose -f docker-compose.yml -f docker-compose.test.yml --env-file=.env.test up --build
 
 //Una vez que esté disponible el servicio api
-docker compose exec api npm run test
+docker compose exec api npm run test:e2e
 
 ```
 
@@ -46,7 +46,7 @@ Me apoyé de archivos de prompts pre-curados, como el que provee angular en el d
 También lo usé para salir de estancamientos cuando el debuggeo a través de los mensajes de la consola dejaba de ser tan evidente. 
 Un caso particular que puedo nombrar fue una dependencia circular entre el task.service del frontend y task.gateway
 
-# Decisiones y trade-offs
+# Decisiones/supuestos y trade-offs
 Durante el desarrollo tomé decisiones mayoritariamente a modo de aseurar el cumplimiento de los requisitos esenciales en el tiempo estipulado. Estas fueron:
 
 - El kanban tendrá 1 solo tablero universal para todos los usuarios.
@@ -59,3 +59,12 @@ Por ejemplo, usar tailwind3 fue porque no se aplicaban los estilos con tailwind4
 
 No poder mover las tareas verticalmente fue un problema con el que me encontré ya avanzado en el proyecto por no haber considerado esto en la definición del modelo de tasks. De haber pensado en poner un id de posición en la columna en la entidad de task podría haber implementado lógica de reorganización en el drag'n'drop. El trade-off es una UX menos pulida y visualmente más tosca.
 
+En conclusión, la gran parte de las decisiones fueron tomadas en base al tiempo y limitaciones técnicas, lo cual desemboca en un resultado final menos pulido y profesional.
+
+# Conclusiones
+Tuve un buen pasar con ambos frameworks, me pasieron muy ágiles y limpios. No tuve experiencia previa con ninguno y disfrute tanto de la documentación oficial como el desarrollo. 
+Si tuviera que dar puntos que me parecieron interesantes a nivel personal:
+- En Nest me pareció muy limpia y agradable la forma de desarrollar "sobre la marcha" integrando únicamente las herramientas que necesito para mi proyecto, sin tener un proyecto inicial ahogado en carpetas y módulos que no iba a terminar usando en algo tan simple como un crud. Lo sentí muy simple y poco verboso en todos los módulos, realmente escribí muy pocas lineas de código para todo el backend.
+- En Angular sentí muy ordenado y limpio el sistema de módulos, mucho menos verboso y enredado que React. Al igual que Nest sentí que con el CLI ya tenía hecha la mayoría del trabajo hecha, simplemente tenia que añadir algo de lógica sencilla para que todo empiece a funcionar prácticamente sin problemas.
+
+Los problemas que tuve durante el desarrollo fueron puramente limitaciones técnicas propias de la no experiencia con estos frameworks y falta de organización inicial. Siento que con uno o dos proyectos simplones más como este podría empezar a dar desarrollos decentes con estos frameworks. 
