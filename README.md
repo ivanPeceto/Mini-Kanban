@@ -2,8 +2,15 @@
 Proyecto entregable a modo de prueba técnica.
 
 # Videos
-[video.webm](https://github.com/user-attachments/assets/539e355e-c39f-42f7-9cb3-891a44ac4c21)
-[video_manyclients.webm](https://github.com/user-attachments/assets/502ad0ce-851b-423f-83e3-d7c32c5b80d7)
+
+
+https://github.com/user-attachments/assets/6389ae37-8c7a-4f5e-a436-370b992b3ebf
+
+
+
+https://github.com/user-attachments/assets/e35d3605-4211-4b96-861d-d6f59d3701cf
+
+
 
 # Instalación
 Requisitos: docker instalado
