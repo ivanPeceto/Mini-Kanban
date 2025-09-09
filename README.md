@@ -1,6 +1,10 @@
 # Mini-Kanban
 Proyecto entregable a modo de prueba técnica.
 
+# Videos
+[![Watch the video](https://github.com/ivanPeceto/Mini-Kanban/blob/main/multimedia/thumbnail.jpg)](https://github.com/ivanPeceto/Mini-Kanban/blob/main/multimedia/video.webm)
+[![Watch the video](https://github.com/ivanPeceto/Mini-Kanban/blob/main/multimedia/thumbnail.jpg)](https://github.com/ivanPeceto/Mini-Kanban/blob/main/multimedia/video_manyclients.webm)
+
 # Instalación
 Requisitos: docker instalado
 - Renombrar `.env.test.example` y `.env.example` a `.env.test` y  `.env`.
