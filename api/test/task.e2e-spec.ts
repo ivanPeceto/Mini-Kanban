@@ -4,19 +4,22 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Task } from '../src/task/entities/task.entity';
-import { Repository } from 'typeorm';
+import { Repository, DataSource } from 'typeorm';
 
 describe('Tasks Controller (e2e)', () => {
   let app: INestApplication;
   let taskRepository: Repository<Task>;
+  let dataSource: DataSource;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe());
     await app.init();
+
+    dataSource = app.get(DataSource);
+    await dataSource.runMigrations();
 
     taskRepository = moduleFixture.get<Repository<Task>>(
       getRepositoryToken(Task),
@@ -25,7 +28,7 @@ describe('Tasks Controller (e2e)', () => {
 
   //Limpia la bd despues de cada prueba
   afterEach(async () => {
-    await taskRepository.query('DELETE FROM task');
+    await taskRepository.clear();
   });
 
   afterAll(async () => {
@@ -49,7 +52,7 @@ describe('Tasks Controller (e2e)', () => {
         });
       });
   });
-  
+
   it('GET /board - Debe devolver el estado del tablero', async () => {
     await request(app.getHttpServer())
       .post('/tasks')
